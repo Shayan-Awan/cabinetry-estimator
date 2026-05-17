@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Momentum Cabinetry — Alberta</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f3ef;
+    --surface: #ffffff;
+    --border: #e4e0d8;
+    --text: #1a1814;
+    --muted: #6b6560;
+    --accent: #8b6840;
+    --accent-light: #f0e8dc;
+    --good: #4b5563;
+    --better: #1d4ed8;
+    --best: #92400e;
+    --good-bg: #f3f4f6;
+    --better-bg: #eff6ff;
+    --best-bg: #fffbeb;
+    --green: #065f46;
+    --green-bg: #ecfdf5;
+    --red: #991b1b;
+    --red-bg: #fef2f2;
+    --radius: 10px;
+    --shadow: 0 1px 4px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  .nav-brand {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 16px 0;
+    flex-shrink: 0;
+  }
+  .nav-tabs {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+  }
+  .nav-tab {
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .nav-tab:hover { color: var(--text); background: var(--bg); }
+  .nav-tab.active { color: var(--accent); background: var(--accent-light); }
+  .nav-badge {
+    display: inline-block;
+    background: var(--red-bg);
+    color: var(--red);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 5px;
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* ── SECTIONS ── */
+  section.page { display: none; }
+  section.page.active { display: block; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 48px 24px; }
+
+  /* ── CATALOG PAGE ── */
+  .catalog-hero {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .catalog-hero h1 {
+    font-size: 42px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .catalog-hero p {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* Tier cards */
+  .tier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 64px;
+  }
+  .tier-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    position: relative;
+    box-shadow: var(--shadow);
+  }
+  .tier-card.tier-good { border-top: 3px solid var(--good); }
+  .tier-card.tier-better { border-top: 3px solid var(--better); }
+  .tier-card.tier-best { border-top: 3px solid var(--best); }
+
+  .tier-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .tier-good .tier-label { background: var(--good-bg); color: var(--good); }
+  .tier-better .tier-label { background: var(--better-bg); color: var(--better); }
+  .tier-best .tier-label { background: var(--best-bg); color: var(--best); }
+
+  .tier-card h3 { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
+  .tier-card .tier-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; font-style: italic; }
+  .tier-card .tier-material {
+    font-size: 13px;
+    background: var(--bg);
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+    color: var(--muted);
+  }
+  .tier-card .tier-material strong { color: var(--text); display: block; margin-bottom: 2px; }
+  .tier-features { list-style: none; font-size: 14px; }
+  .tier-features li { padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .tier-features li:last-child { border-bottom: none; }
+  .tier-features li::before { content: "✓"; color: var(--accent); font-weight: 700; }
+  .tier-price-note {
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .tier-price-note strong { color: var(--text); font-size: 16px; display: block; }
+
+  /* Kitchen styles */
+  .section-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .section-sub {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 32px;
+  }
+  .style-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 64px;
+  }
+  .style-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    cursor: default;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .style-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  }
+  .style-swatch {
+    height: 140px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 12px;
+  }
+  .style-swatch .swatch-label {
+    background: rgba(255,255,255,0.9);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: #333;
+  }
+  /* Swatch designs */
+  .sw-white-gloss { background: linear-gradient(145deg, #f8f8f8 0%, #e8e8e8 100%); border-bottom: 3px solid #d0d0d0; }
+  .sw-warm-wood { background: linear-gradient(145deg, #c4956a 0%, #8b5e3c 100%); }
+  .sw-matte-black { background: linear-gradient(145deg, #2d2d2d 0%, #1a1a1a 100%); }
+  .sw-two-tone { background: linear-gradient(to right, #1a1a1a 50%, #f5f0e8 50%); }
+  .sw-glass-luxury { background: linear-gradient(145deg, #b8d4e8 0%, #8fb8d4 100%); }
+  .sw-shaker { background: linear-gradient(145deg, #e8e0d0 0%, #d4c8b0 100%); }
+  .sw-commercial { background: linear-gradient(145deg, #d0d8e0 0%, #b8c4cc 100%); }
+
+  .style-body { padding: 18px 20px 20px; }
+  .style-body h4 { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+  .style-body p { font-size: 13px; color: var(--muted); margin-bottom: 12px; line-height: 1.55; }
+  .style-tiers {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .style-tier-badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 12px;
+    letter-spacing: 0.04em;
+  }
+  .stb-good { background: var(--good-bg); color: var(--good); }
+  .stb-better { background: var(--better-bg); color: var(--better); }
+  .stb-best { background: var(--best-bg); color: var(--best); }
+
+  /* ── CALCULATOR PAGE ── */
+  .calc-notice {
+    background: var(--red-bg);
+    border: 1px solid #fecaca;
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    margin-bottom: 32px;
+    font-size: 14px;
+    color: var(--red);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .calc-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 24px;
+    align-items: start;
+  }
+  .calc-form-card, .calc-result-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+  }
+  .form-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 24px 0 14px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .form-section-title:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .form-row.full { grid-template-columns: 1fr; }
+  .form-group { display: flex; flex-direction: column; gap: 5px; }
+  .form-group label { font-size: 13px; font-weight: 500; color: var(--text); }
+  .form-group .hint { font-size: 11px; color: var(--muted); }
+  input[type="number"], input[type="text"], select {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 9px 12px;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--bg);
+    transition: border-color 0.15s;
+    font-family: inherit;
+  }
+  input:focus, select:focus { outline: none; border-color: var(--accent); background: #fff; }
+
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .toggle-row:last-child { border-bottom: none; }
+  .toggle-row label { font-size: 14px; }
+  .toggle {
+    position: relative;
+    width: 40px;
+    height: 22px;
+  }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: #d1d5db;
+    border-radius: 22px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .toggle-slider::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.2s;
+  }
+  .toggle input:checked + .toggle-slider { background: var(--accent); }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(18px); }
+
+  .hidden-section {
+    background: #fffbf5;
+    border: 1px dashed var(--accent);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 14px;
+  }
+  .hidden-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  /* Results */
+  .result-title { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
+  .result-block {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .result-block-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 4px; }
+  .result-block-value { font-size: 26px; font-weight: 300; color: var(--text); }
+  .result-block-value small { font-size: 14px; color: var(--muted); }
+  .result-block-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .result-range {
+    background: var(--green-bg);
+    border: 1px solid #a7f3d0;
+    border-radius: 8px;
+    padding: 18px;
+    margin-bottom: 12px;
+  }
+  .result-range-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); margin-bottom: 8px; }
+  .result-range-value { font-size: 30px; font-weight: 600; color: var(--green); }
+
+  .result-deposit {
+    background: var(--accent-light);
+    border: 1px solid #d4b896;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .result-deposit-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 4px; }
+  .result-deposit-value { font-size: 22px; font-weight: 600; color: var(--accent); }
+
+  .breakdown-table { width: 100%; font-size: 13px; margin-top: 16px; border-collapse: collapse; }
+  .breakdown-table tr { border-bottom: 1px solid var(--border); }
+  .breakdown-table tr:last-child { border-bottom: none; font-weight: 600; }
+  .breakdown-table td { padding: 7px 4px; }
+  .breakdown-table td:last-child { text-align: right; font-family: monospace; font-size: 13px; }
+
+  .upgrade-list { margin-top: 16px; }
+  .upgrade-item {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .upgrade-item strong { display: block; color: var(--text); }
+  .upgrade-item span { color: var(--muted); font-size: 12px; }
+  .upgrade-price { font-weight: 600; color: var(--accent); white-space: nowrap; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 24px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .btn-primary { background: var(--accent); color: white; width: 100%; margin-top: 8px; }
+  .btn-primary:hover { background: #7a5a35; }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── BUILDER PAGE ── */
+  .builder-hero {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .builder-hero h1 { font-size: 36px; font-weight: 300; letter-spacing: -0.02em; margin-bottom: 10px; }
+  .builder-hero p { color: var(--muted); font-size: 16px; }
+
+  .builder-layout {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+    align-items: start;
+  }
+  .builder-form-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+  .builder-result-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 80px;
+  }
+
+  .option-group { margin-bottom: 28px; }
+  .option-group-label {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .option-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+  }
+  .option-tile {
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--surface);
+    user-select: none;
+  }
+  .option-tile:hover { border-color: var(--accent); }
+  .option-tile.selected { border-color: var(--accent); background: var(--accent-light); }
+  .option-tile .tile-label { font-size: 13px; font-weight: 500; color: var(--text); }
+  .option-tile .tile-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .option-tile input[type="radio"] { display: none; }
+
+  /* Finish swatches in builder */
+  .finish-tile { padding: 0; overflow: hidden; }
+  .finish-swatch-mini {
+    height: 60px;
+    border-radius: 5px 5px 0 0;
+  }
+  .finish-tile .tile-label { padding: 8px 6px 10px; display: block; }
+
+  /* Builder result */
+  .builder-estimate-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .builder-estimate-range {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+  .builder-estimate-note { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+  .builder-summary { margin-top: 20px; }
+  .builder-summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .builder-summary-row:last-child { border-bottom: none; }
+  .builder-summary-row strong { color: var(--text); font-weight: 500; }
+  .builder-cta {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .builder-cta:hover { background: #7a5a35; }
+  .builder-disclaimer {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+
+  .progress-bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 32px;
+  }
+  .progress-step {
+    height: 3px;
+    flex: 1;
+    background: var(--border);
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+  .progress-step.done { background: var(--accent); }
+
+  @media (max-width: 900px) {
+    .calc-layout { grid-template-columns: 1fr; }
+    .builder-layout { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-inner { gap: 16px; }
+    .nav-brand { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <div class="nav-brand">Momentum</div>
+    <ul class="nav-tabs">
+      <li class="nav-tab active" onclick="showPage('builder', this)">Get an Estimate</li>
+      <li class="nav-tab" onclick="showPage('calculator', this)">Quote Tool <span class="nav-badge">INTERNAL</span></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════
+     QUOTE CALCULATOR PAGE (INTERNAL)
+═══════════════════════════════════════════ -->
+<section id="page-calculator" class="page">
+<div class="container">
+  <div class="calc-notice">
+    Internal use only — not for sharing with customers.
+  </div>
+
+  <div class="calc-layout">
+    <!-- FORM -->
+    <div class="calc-form-card">
+      <h2 style="font-size:20px;font-weight:600;margin-bottom:4px;">Sales Quote Estimator</h2>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:8px;">All costs in CAD. Based on Momentum supplier sheet + Alberta landed cost model.</p>
+
+      <div class="form-section-title">Kitchen Dimensions</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Base Cabinets (linear meters)</label>
+          <input type="number" id="c-base" value="6" min="1" max="30" step="0.5" oninput="calcQuote()">
+          <span class="hint">Ground-level cabinets</span>
+        </div>
+        <div class="form-group">
+          <label>Wall Cabinets (linear meters)</label>
+          <input type="number" id="c-wall" value="5" min="0" max="25" step="0.5" oninput="calcQuote()">
+          <span class="hint">Upper / overhead cabinets</span>
+        </div>
+      </div>
+
+      <div class="form-section-title">Door Finish</div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label>Door Material / Finish</label>
+          <select id="c-finish" onchange="calcQuote()">
+            <optgroup label="Good Tier">
+              <option value="melamine-chip">Melamine on Chipboard — Good</option>
+            </optgroup>
+            <optgroup label="Better Tier">
+              <option value="pet-chip">PET on Chipboard — Better</option>
+              <option value="pet-plywood" selected>PET on Plywood — Better+</option>
+              <option value="lacquer-mdf">Lacquer MDF Flat — Better+</option>
+              <option value="lacquer-shaped">Lacquer MDF Shaped (Shaker) — Better+</option>
+            </optgroup>
+            <optgroup label="Best Tier">
+              <option value="lacquer-plywood">Lacquer Plywood Flat — Best</option>
+              <option value="veneer-standard">Veneer (Ash/Oak/Cherry) — Best</option>
+              <option value="veneer-premium">Veneer (Black Walnut/Ebony) — Best</option>
+              <option value="glass-clear">Aluminum Glass — Clear/Grey — Best</option>
+              <option value="glass-fluted">Aluminum Glass — Fluted/Frosted — Best</option>
+            </optgroup>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-section-title">Countertop</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Countertop Material</label>
+          <select id="c-top" onchange="calcQuote()">
+            <option value="quartz-15">Quartz 15mm — $73/m</option>
+            <option value="quartz-20" selected>Quartz 20mm — $99/m</option>
+            <option value="sintered">Sintered Stone — $187/m</option>
+            <option value="granite-mid">Granite (mid) — $107/m</option>
+            <option value="granite-premium">Granite (premium) — $180/m</option>
+            <option value="stainless">Stainless Steel — $163/m</option>
+            <option value="none">No Countertop</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Countertop run includes</label>
+          <select id="c-top-run" onchange="calcQuote()">
+            <option value="base">Perimeter only (= base LM)</option>
+            <option value="base-island">Perimeter + Island top</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-section-title">Options</div>
+      <div class="toggle-row">
+        <label>Island included</label>
+        <label class="toggle"><input type="checkbox" id="c-island" onchange="calcQuote()"><span class="toggle-slider"></span></label>
+      </div>
+      <div id="island-extra" style="display:none;margin-top:8px;margin-bottom:8px;">
+        <div class="form-group">
+          <label>Island size</label>
+          <select id="c-island-size" onchange="calcQuote()">
+            <option value="1.2">Small (1.2 m countertop)</option>
+            <option value="1.8" selected>Medium (1.8 m countertop)</option>
+            <option value="2.4">Large (2.4 m countertop)</option>
+          </select>
+        </div>
+      </div>
+      <div class="toggle-row">
+        <label>Include installation labour</label>
+        <label class="toggle"><input type="checkbox" id="c-install" onchange="calcQuote()"><span class="toggle-slider"></span></label>
+      </div>
+
+      <div class="form-section-title">Hardware</div>
+      <div class="form-row full">
+        <div class="form-group">
+          <label>Hardware Package</label>
+          <select id="c-hardware" onchange="calcQuote()">
+            <option value="standard">Standard Hinges — Included</option>
+            <option value="softclose" selected>Soft-Close Package — +$35/LM</option>
+            <option value="premium">Premium Pull &amp; Push-to-Open — +$75/LM</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Hidden internal fields -->
+      <div class="hidden-section">
+        <div class="hidden-section-label">Internal Fields — Not Visible to Customer</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Extra Markup %</label>
+            <input type="number" id="c-markup" value="0" min="0" max="40" step="5" oninput="calcQuote()">
+            <span class="hint">On top of model sell price</span>
+          </div>
+          <div class="form-group">
+            <label>Shipping / Import Buffer %</label>
+            <input type="number" id="c-shipping" value="0" min="0" max="20" step="1" oninput="calcQuote()">
+            <span class="hint">Already baked in at 26–35%</span>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Install Rate ($/LM)</label>
+            <input type="number" id="c-install-rate" value="180" min="100" max="400" step="10" oninput="calcQuote()">
+            <span class="hint">Alberta labour — adjust per job</span>
+          </div>
+          <div class="form-group">
+            <label>Deposit % of Total</label>
+            <input type="number" id="c-deposit-pct" value="33" min="10" max="60" step="1" oninput="calcQuote()">
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="calcQuote()">Recalculate</button>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="calc-result-card" id="calc-results">
+      <div class="result-title">Estimate Summary</div>
+
+      <div class="result-block">
+        <div class="result-block-label">Material Cost (Supplier Base)</div>
+        <div class="result-block-value" id="r-material">$0</div>
+        <div class="result-block-sub">Before freight or markup</div>
+      </div>
+
+      <div class="result-block">
+        <div class="result-block-label">Estimated Landed Cost (Alberta)</div>
+        <div class="result-block-value" id="r-landed">$0</div>
+        <div class="result-block-sub">Includes ocean freight, duties, trucking, buffer</div>
+      </div>
+
+      <div class="result-range">
+        <div class="result-range-label">Customer Price Range</div>
+        <div class="result-range-value" id="r-range">$0 – $0</div>
+      </div>
+
+      <div class="result-deposit">
+        <div class="result-deposit-label">Deposit to Request (33%)</div>
+        <div class="result-deposit-value" id="r-deposit">$0</div>
+      </div>
+
+      <table class="breakdown-table" id="r-breakdown">
+        <tbody></tbody>
+      </table>
+
+      <div class="upgrade-list" id="r-upgrades">
+        <div style="font-size:13px;font-weight:700;margin-top:20px;margin-bottom:8px;">Upgrade Options to Upsell</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════
+     KITCHEN BUILDER PAGE
+═══════════════════════════════════════════ -->
+<section id="page-builder" class="page active">
+<div class="container">
+
+  <div class="builder-hero">
+    <h1>Design Your Kitchen Package</h1>
+    <p>Pick your style and get an instant budget range — no commitment needed.</p>
+  </div>
+
+  <div class="builder-layout">
+    <!-- OPTIONS FORM -->
+    <div class="builder-form-card">
+      <div class="progress-bar" id="progress-bar">
+        <div class="progress-step done"></div>
+        <div class="progress-step done"></div>
+        <div class="progress-step done"></div>
+        <div class="progress-step done"></div>
+        <div class="progress-step done"></div>
+      </div>
+
+      <!-- LAYOUT -->
+      <div class="option-group">
+        <div class="option-group-label">1. Kitchen Layout</div>
+        <div class="option-tiles">
+          <label class="option-tile selected" onclick="selectTile('layout', 'l-shape', this)">
+            <span class="tile-label">L-Shape</span>
+            <span class="tile-sub">Most popular</span>
+          </label>
+          <label class="option-tile" onclick="selectTile('layout', 'u-shape', this)">
+            <span class="tile-label">U-Shape</span>
+            <span class="tile-sub">Max storage</span>
+          </label>
+          <label class="option-tile" onclick="selectTile('layout', 'straight', this)">
+            <span class="tile-label">Straight Wall</span>
+            <span class="tile-sub">Apartments</span>
+          </label>
+          <label class="option-tile" onclick="selectTile('layout', 'galley', this)">
+            <span class="tile-label">Galley</span>
+            <span class="tile-sub">Two-wall run</span>
+          </label>
+          <label class="option-tile" onclick="selectTile('layout', 'island', this)">
+            <span class="tile-label">With Island</span>
+            <span class="tile-sub">Premium feel</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- FINISH -->
+      <div class="option-group">
+        <div class="option-group-label">2. Cabinet Finish</div>
+        <div class="option-tiles" style="grid-template-columns: repeat(auto-fill, minmax(110px,1fr));">
+          <label class="option-tile finish-tile selected" onclick="selectTile('finish', 'white-gloss', this)">
+            <div class="finish-swatch-mini sw-white-gloss"></div>
+            <span class="tile-label">White Gloss</span>
+          </label>
+          <label class="option-tile finish-tile" onclick="selectTile('finish', 'matte-grey', this)">
+            <div class="finish-swatch-mini" style="background:linear-gradient(145deg,#9ca3af,#6b7280)"></div>
+            <span class="tile-label">Matte Grey</span>
+          </label>
+          <label class="option-tile finish-tile" onclick="selectTile('finish', 'wood-grain', this)">
+            <div class="finish-swatch-mini sw-warm-wood"></div>
+            <span class="tile-label">Wood Grain</span>
+          </label>
+          <label class="option-tile finish-tile" onclick="selectTile('finish', 'matte-black', this)">
+            <div class="finish-swatch-mini sw-matte-black"></div>
+            <span class="tile-label">Matte Black</span>
+          </label>
+          <label class="option-tile finish-tile" onclick="selectTile('finish', 'shaker', this)">
+            <div class="finish-swatch-mini sw-shaker"></div>
+            <span class="tile-label">Shaker</span>
+          </label>
+          <label class="option-tile finish-tile" onclick="selectTile('finish', 'glass-luxury', this)">
+            <div class="finish-swatch-mini sw-glass-luxury"></div>
+            <span class="tile-label">Glass Luxury</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- COUNTERTOP -->
+      <div class="option-group">
+        <div class="option-group-label">3. Countertop</div>
+        <div class="option-tiles">
+          <label class="option-tile selected" onclick="selectTile('countertop', 'quartz', this)">
+            <span class="tile-label">Quartz</span>
+            <span class="tile-sub">Best value</span>
+          </label>
+          <label class="option-tile" onclick="selectTile('countertop', 'sintered', this)">
+            <span class="tile-label">Sintered Stone</span>
+            <span class="tile-sub">Ultra durable</span>
+          </label>
+          <label class="option-tile" onclick="selectTile('countertop', 'granite', this)">
+            <span class="tile-label">Granite</span>
+            <span class="tile-sub">Natural stone</span>
+          </label>
+          <label class="option-tile" onclick="selectTile('countertop', 'stainless', this)">
+            <span class="tile-label">Stainless</span>
+            <span class="tile-sub">Commercial look</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- HARDWARE -->
+      <div class="option-group">
+        <div class="option-group-label">4. Hardware</div>
+        <div class="option-tiles">
+          <label class="option-tile selected" onclick="selectTile('hardware', 'basic', this)">
+            <span class="tile-label">Basic Handle</span>
+            <span class="tile-sub">Included</span>
+          </label>
+          <label class="option-tile" onclick="selectTile('hardware', 'handleless', this)">
+            <span class="tile-label">Handleless</span>
+            <span class="tile-sub">Push-to-open</span>
+          </label>
+          <label class="option-tile" onclick="selectTile('hardware', 'soft-close', this)">
+            <span class="tile-label">Soft-Close</span>
+            <span class="tile-sub">Popular upgrade</span>
+          </label>
+          <label class="option-tile" onclick="selectTile('hardware', 'premium', this)">
+            <span class="tile-label">Premium Pulls</span>
+            <span class="tile-sub">Luxury feel</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- SIZE -->
+      <div class="option-group">
+        <div class="option-group-label">5. Kitchen Size</div>
+        <div class="option-tiles">
+          <label class="option-tile" onclick="selectTile('size', 'small', this)">
+            <span class="tile-label">Small</span>
+            <span class="tile-sub">Up to 10 ft run</span>
+          </label>
+          <label class="option-tile selected" onclick="selectTile('size', 'medium', this)">
+            <span class="tile-label">Medium</span>
+            <span class="tile-sub">12–15 ft run</span>
+          </label>
+          <label class="option-tile" onclick="selectTile('size', 'large', this)">
+            <span class="tile-label">Large</span>
+            <span class="tile-sub">16+ ft run</span>
+          </label>
+          <label class="option-tile" onclick="selectTile('size', 'custom', this)">
+            <span class="tile-label">Custom</span>
+            <span class="tile-sub">We'll measure</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULT PANEL -->
+    <div class="builder-result-card">
+      <div class="builder-estimate-label">Your Estimated Range</div>
+      <div class="builder-estimate-range" id="b-range">$14,500 – $21,000</div>
+      <div class="builder-estimate-note" id="b-note">Installed in Alberta · Supply + delivery included</div>
+
+      <div class="builder-summary" id="b-summary">
+        <div class="builder-summary-row"><span>Layout</span><strong id="bs-layout">L-Shape</strong></div>
+        <div class="builder-summary-row"><span>Finish</span><strong id="bs-finish">White Gloss</strong></div>
+        <div class="builder-summary-row"><span>Countertop</span><strong id="bs-countertop">Quartz</strong></div>
+        <div class="builder-summary-row"><span>Hardware</span><strong id="bs-hardware">Basic Handle</strong></div>
+        <div class="builder-summary-row"><span>Size</span><strong id="bs-size">Medium</strong></div>
+        <div class="builder-summary-row"><span>Quality Tier</span><strong id="bs-tier">—</strong></div>
+      </div>
+
+      <button class="builder-cta" onclick="alert('Great! Send your selections to Momentum and we will prepare a detailed quote within 24 hours.')">
+        Request a Full Quote →
+      </button>
+      <div class="builder-disclaimer">
+        Estimate includes supply &amp; delivery to site.<br>
+        Installation quoted separately. Prices may vary by design.
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<script>
+// ── TAB NAVIGATION ──
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  el.classList.add('active');
+}
+
+// ═══════════════════════════════════════════
+// QUOTE CALCULATOR
+// ═══════════════════════════════════════════
+
+// Supplier base prices (CAD)
+const FINISH_PRICES = {
+  // door_price_per_m2, body_price_per_LM, tier_label
+  'melamine-chip':    { door: 37,  body: 66,  tier: 'Good'   },
+  'pet-chip':         { door: 48,  body: 66,  tier: 'Better' },
+  'pet-plywood':      { door: 54,  body: 108, tier: 'Better' },
+  'lacquer-mdf':      { door: 68,  body: 75,  tier: 'Better' },
+  'lacquer-shaped':   { door: 79,  body: 75,  tier: 'Better' },
+  'lacquer-plywood':  { door: 101, body: 108, tier: 'Best'   },
+  'veneer-standard':  { door: 130, body: 108, tier: 'Best'   },
+  'veneer-premium':   { door: 149, body: 108, tier: 'Best'   },
+  'glass-clear':      { door: 90,  body: 108, tier: 'Best'   }, // per linear m (not m²) — adjusted
+  'glass-fluted':     { door: 110, body: 108, tier: 'Best'   },
+};
+
+// Countertop base prices per linear meter
+const TOP_PRICES = {
+  'quartz-15':      73,
+  'quartz-20':      99,
+  'sintered':       187,
+  'granite-mid':    107,
+  'granite-premium':180,
+  'stainless':      163,
+  'none':           0,
+};
+
+// Hardware add-on per LM of total cabinet
+const HW_RATES = { standard: 0, softclose: 35, premium: 75 };
+
+// Cost model multipliers
+const M_FRONT_LAND  = 1.26;
+const M_FRONT_INST  = 1.20;
+const M_FRONT_SELL  = 0.80;
+const M_BODY_LAND   = 1.31;
+const M_BODY_INST   = 1.32;
+const M_BODY_SELL   = 0.80;
+const M_TOP_LAND    = 1.35;
+const M_TOP_INST    = 1.40;
+const M_TOP_SELL    = 0.78;
+
+// Door face area per linear meter
+const BASE_H = 0.75; // m² per LM for base cabinet doors
+const WALL_H = 0.70; // m² per LM for wall cabinet doors
+
+function fmt(n) {
+  return '$' + Math.round(n).toLocaleString('en-CA');
+}
+
+function calcQuote() {
+  const baseLM   = parseFloat(document.getElementById('c-base').value) || 0;
+  const wallLM   = parseFloat(document.getElementById('c-wall').value) || 0;
+  const finishKey = document.getElementById('c-finish').value;
+  const topKey   = document.getElementById('c-top').value;
+  const topRun   = document.getElementById('c-top-run').value;
+  const island   = document.getElementById('c-island').checked;
+  const installOn = document.getElementById('c-install').checked;
+  const hwKey    = document.getElementById('c-hardware').value;
+  const extraMarkup = parseFloat(document.getElementById('c-markup').value) || 0;
+  const extraShip   = parseFloat(document.getElementById('c-shipping').value) || 0;
+  const installRate = parseFloat(document.getElementById('c-install-rate').value) || 180;
+  const depositPct  = parseFloat(document.getElementById('c-deposit-pct').value) || 33;
+
+  // Show/hide island size
+  document.getElementById('island-extra').style.display = island ? 'block' : 'none';
+  const islandTopLM = island ? parseFloat(document.getElementById('c-island-size').value) || 1.8 : 0;
+  const islandCabLM = island ? 2.0 : 0; // 2 LM for island cabinet body
+
+  const fp = FINISH_PRICES[finishKey];
+  const totalCabLM = baseLM + wallLM + islandCabLM;
+
+  // Door face area (m²)
+  const baseDoorArea = baseLM * BASE_H;
+  const wallDoorArea = wallLM * WALL_H;
+  const islandDoorArea = island ? islandCabLM * BASE_H : 0;
+  const totalDoorArea = baseDoorArea + wallDoorArea + islandDoorArea;
+
+  // Countertop length
+  let topLM = 0;
+  if (topKey !== 'none') {
+    topLM = baseLM; // perimeter
+    if (topRun === 'base-island') topLM += islandTopLM;
+  }
+
+  // Extra ship factor (additional)
+  const shipFactor = 1 + extraShip / 100;
+
+  // === Supplier base material ===
+  const matDoor = totalDoorArea * fp.door;
+  const matBody = totalCabLM * fp.body;
+  const matTop  = topLM * (TOP_PRICES[topKey] || 0);
+  const matHW   = totalCabLM * (HW_RATES[hwKey] || 0);
+  const matTotal = matDoor + matBody + matTop + matHW;
+
+  // === Landed ===
+  const landedDoor = matDoor * M_FRONT_LAND * shipFactor;
+  const landedBody = matBody * M_BODY_LAND * shipFactor;
+  const landedTop  = matTop  * M_TOP_LAND  * shipFactor;
+  const landedHW   = matHW;
+  const landedTotal = landedDoor + landedBody + landedTop + landedHW;
+
+  // === Installed (sell basis) ===
+  const sellDoor = (landedDoor * M_FRONT_INST) / M_FRONT_SELL;
+  const sellBody = (landedBody * M_BODY_INST)  / M_BODY_SELL;
+  const sellTop  = (landedTop  * M_TOP_INST)   / M_TOP_SELL;
+  const sellHW   = matHW * 1.5; // retail HW
+  const sellBase = sellDoor + sellBody + sellTop + sellHW;
+
+  // Install labour
+  const installCost = installOn ? totalCabLM * installRate : 0;
+
+  // Total customer price
+  const totalSell = (sellBase + installCost) * (1 + extraMarkup / 100);
+
+  // Range: -8% to +15%
+  const low  = totalSell * 0.92;
+  const high = totalSell * 1.15;
+  const deposit = totalSell * (depositPct / 100);
+
+  // Update DOM
+  document.getElementById('r-material').textContent = fmt(matTotal);
+  document.getElementById('r-landed').textContent   = fmt(landedTotal);
+  document.getElementById('r-range').textContent    = fmt(low) + ' – ' + fmt(high);
+  document.getElementById('r-deposit').textContent  = fmt(deposit);
+
+  // Breakdown table
+  const tbody = document.querySelector('#r-breakdown tbody');
+  tbody.innerHTML = [
+    ['Door / Front material',      fmt(sellDoor)],
+    ['Cabinet bodies',             fmt(sellBody)],
+    topKey !== 'none' ? ['Countertop (' + topLM.toFixed(1) + ' m)', fmt(sellTop)] : null,
+    matHW > 0 ? ['Hardware package',             fmt(sellHW)] : null,
+    installOn ? ['Installation labour',          fmt(installCost)] : null,
+    extraMarkup > 0 ? ['Additional markup (' + extraMarkup + '%)', fmt((sellBase + installCost) * extraMarkup / 100)] : null,
+    ['────────────────', ''],
+    ['Estimated sell price',       fmt(totalSell)],
+  ].filter(Boolean).map(([label, val]) =>
+    `<tr><td>${label}</td><td>${val}</td></tr>`
+  ).join('');
+
+  // Upgrades
+  const upgrades = buildUpgrades(finishKey, topKey, hwKey, totalSell, baseLM, wallLM, islandCabLM, topLM, installOn, installRate);
+  document.getElementById('r-upgrades').innerHTML =
+    '<div style="font-size:13px;font-weight:700;margin-top:20px;margin-bottom:8px;">Upgrade Options to Upsell</div>' +
+    upgrades;
+}
+
+function buildUpgrades(finishKey, topKey, hwKey, baseSell, baseLM, wallLM, islandCabLM, topLM, installOn, installRate) {
+  const suggestions = [];
+  const totalLM = baseLM + wallLM + islandCabLM;
+
+  if (finishKey === 'melamine-chip') {
+    const diff = totalLM * (FINISH_PRICES['pet-plywood'].door - FINISH_PRICES['melamine-chip'].door) * BASE_H * M_FRONT_LAND * M_FRONT_INST / M_FRONT_SELL;
+    suggestions.push({ label: 'Upgrade to PET / Plywood', sub: 'Better finish, more durable', price: diff });
+  }
+  if (['melamine-chip','pet-chip','pet-plywood'].includes(finishKey)) {
+    const diff = totalLM * (FINISH_PRICES['lacquer-plywood'].door - FINISH_PRICES[finishKey].door) * BASE_H * M_FRONT_LAND * M_FRONT_INST / M_FRONT_SELL;
+    if (diff > 0) suggestions.push({ label: 'Upgrade to Lacquer Plywood', sub: 'High-end smooth finish', price: diff });
+  }
+  if (!['veneer-premium','glass-luxury'].includes(finishKey) && finishKey !== 'veneer-standard') {
+    const diff = totalLM * (FINISH_PRICES['veneer-standard'].door - FINISH_PRICES[finishKey].door) * BASE_H * M_FRONT_LAND * M_FRONT_INST / M_FRONT_SELL;
+    if (diff > 0) suggestions.push({ label: 'Upgrade to Real Wood Veneer', sub: 'Natural oak / ash / walnut', price: diff });
+  }
+  if (topKey === 'quartz-15') {
+    const diff = topLM * (TOP_PRICES['quartz-20'] - TOP_PRICES['quartz-15']) * M_TOP_LAND * M_TOP_INST / M_TOP_SELL;
+    suggestions.push({ label: 'Upgrade countertop to 20mm Quartz', sub: 'Thicker slab, premium look', price: diff });
+  }
+  if (['quartz-15','quartz-20'].includes(topKey)) {
+    const diff = topLM * (TOP_PRICES['sintered'] - TOP_PRICES[topKey]) * M_TOP_LAND * M_TOP_INST / M_TOP_SELL;
+    suggestions.push({ label: 'Upgrade to Sintered Stone', sub: 'Scratch-proof, heat-proof surface', price: diff });
+  }
+  if (hwKey === 'standard') {
+    suggestions.push({ label: 'Add Soft-Close Hardware', sub: 'Popular homeowner upgrade', price: totalLM * 35 * 1.5 });
+  }
+  if (!installOn) {
+    suggestions.push({ label: 'Add Installation Package', sub: 'Fully managed supply + install', price: totalLM * installRate });
+  }
+
+  return suggestions.slice(0, 4).map(u => `
+    <div class="upgrade-item">
+      <div>
+        <strong>${u.label}</strong>
+        <span>${u.sub}</span>
+      </div>
+      <div class="upgrade-price">+${fmt(u.price)}</div>
+    </div>
+  `).join('');
+}
+
+// Show island toggle
+document.getElementById('c-island').addEventListener('change', function() {
+  document.getElementById('island-extra').style.display = this.checked ? 'block' : 'none';
+  calcQuote();
+});
+
+// Initial calc
+calcQuote();
+
+
+// ═══════════════════════════════════════════
+// KITCHEN BUILDER
+// ═══════════════════════════════════════════
+
+const builderState = {
+  layout:     'l-shape',
+  finish:     'white-gloss',
+  countertop: 'quartz',
+  hardware:   'basic',
+  size:       'medium',
+};
+
+// Price ranges per configuration [low, high] in thousands CAD
+// Based on installed estimate ranges from the pricing model
+const SIZE_LM = { small: {base:4,wall:3}, medium: {base:6,wall:5}, large: {base:9,wall:7}, custom: {base:6,wall:5} };
+
+const FINISH_MULT = {
+  'white-gloss':  { mult: 1.00, tier: 'Better', label: 'White Gloss' },
+  'matte-grey':   { mult: 1.00, tier: 'Better', label: 'Matte Grey' },
+  'wood-grain':   { mult: 1.40, tier: 'Best',   label: 'Wood Grain Veneer' },
+  'matte-black':  { mult: 1.05, tier: 'Better', label: 'Matte Black' },
+  'shaker':       { mult: 0.85, tier: 'Good–Better', label: 'Shaker Classic' },
+  'glass-luxury': { mult: 1.80, tier: 'Best',   label: 'Glass Luxury' },
+};
+
+const TOP_MULT = {
+  quartz:    { mult: 1.00, label: 'Quartz' },
+  sintered:  { mult: 1.55, label: 'Sintered Stone' },
+  granite:   { mult: 1.20, label: 'Granite' },
+  stainless: { mult: 1.45, label: 'Stainless Steel' },
+};
+
+const HW_MULT_B = {
+  basic:      { mult: 1.00, label: 'Basic Handle' },
+  handleless: { mult: 1.15, label: 'Handleless' },
+  'soft-close': { mult: 1.08, label: 'Soft-Close' },
+  premium:    { mult: 1.20, label: 'Premium Pulls' },
+};
+
+const LAYOUT_MULT = {
+  'l-shape': 1.00,
+  'u-shape': 1.30,
+  'straight': 0.70,
+  'galley':   0.90,
+  'island':   1.45,
+};
+
+const LAYOUT_LABEL = {
+  'l-shape': 'L-Shape', 'u-shape': 'U-Shape',
+  'straight': 'Straight Wall', 'galley': 'Galley', 'island': 'With Island',
+};
+const SIZE_LABEL = { small:'Small (≤10 ft)',medium:'Medium (12–15 ft)',large:'Large (16+ ft)',custom:'Custom — we measure' };
+
+// Base installed price per LM at medium Better tier (quartz, basic hardware)
+const BASE_PER_LM = 1800; // CAD/LM fully installed — conservative Better tier
+
+function calcBuilder() {
+  const s = builderState;
+  const sz = SIZE_LM[s.size] || SIZE_LM.medium;
+  const totalLM = sz.base + sz.wall;
+
+  const fData = FINISH_MULT[s.finish] || FINISH_MULT['white-gloss'];
+  const tData = TOP_MULT[s.countertop] || TOP_MULT.quartz;
+  const hData = HW_MULT_B[s.hardware] || HW_MULT_B.basic;
+  const layoutMult = LAYOUT_MULT[s.layout] || 1;
+
+  const combined = BASE_PER_LM * totalLM * fData.mult * tData.mult * hData.mult * layoutMult;
+  const low  = Math.round(combined * 0.88 / 500) * 500;
+  const high = Math.round(combined * 1.18 / 500) * 500;
+
+  document.getElementById('b-range').textContent = fmt(low) + ' – ' + fmt(high);
+  document.getElementById('b-note').textContent =
+    'Estimated installed price in Alberta · Supply + delivery + installation';
+
+  document.getElementById('bs-layout').textContent    = LAYOUT_LABEL[s.layout] || s.layout;
+  document.getElementById('bs-finish').textContent    = fData.label;
+  document.getElementById('bs-countertop').textContent = tData.label;
+  document.getElementById('bs-hardware').textContent  = hData.label;
+  document.getElementById('bs-size').textContent      = SIZE_LABEL[s.size] || s.size;
+  document.getElementById('bs-tier').textContent      = fData.tier;
+}
+
+function selectTile(group, value, el) {
+  // Deselect siblings
+  el.closest('.option-tiles').querySelectorAll('.option-tile').forEach(t => t.classList.remove('selected'));
+  el.classList.add('selected');
+  builderState[group] = value;
+  calcBuilder();
+}
+
+// Initial build calc
+calcBuilder();
+</script>
+</body>
+</html>
