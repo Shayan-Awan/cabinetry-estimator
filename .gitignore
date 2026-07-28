@@ -1,0 +1,25 @@
+# Application data — original documents, rendered pages, generated invoices,
+# backups and the SQLite database. Never commit any of this: it contains
+# customer and worker information.
+data/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# SQLite (including WAL sidecar files) anywhere in the tree
+*.db
+*.db-wal
+*.db-shm
+
+# Local secrets / overrides
+.env
+.streamlit/secrets.toml
+
+# OS noise
+.DS_Store
+Thumbs.db

@@ -1,0 +1,19 @@
+[server]
+# Bind to the loopback interface only. This application handles customer
+# billing data and has no authentication, so it must never be reachable from
+# the office network or the internet.
+address = "127.0.0.1"
+headless = true
+enableCORS = true
+enableXsrfProtection = true
+# Phase 2 accepts field ticket uploads; 25 MB per file is the documented limit.
+maxUploadSize = 25
+
+[browser]
+# Streamlit reports anonymous usage statistics by default. This application is
+# offline by design, so turn it off.
+gatherUsageStats = false
+
+[client]
+toolbarMode = "minimal"
+showErrorDetails = true
